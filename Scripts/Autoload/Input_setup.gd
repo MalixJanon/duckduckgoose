@@ -33,6 +33,7 @@ var unassigned_players := [1, 2]
 
 func _ready():
 	_setup_actions()
+	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 
 func _setup_actions():
 	for player_num in [1, 2]:
@@ -89,6 +90,15 @@ func _assign_next_player(device_type: String, device_id: int):
 	assign_player(player_num, device_type, device_id)
 	print("Assigned Player %d to %s (ID: %d)" % [player_num, device_type, device_id])
 
+func _on_joy_connection_changed(device_id: int, connected: bool):
+	if not connected:
+		# Find which player was using this device
+		for player_num in player_devices.keys():
+			if player_devices[player_num] == device_id:
+				print("Player %'s controller has disconnected (ID: %d)" % [player_num, device_id])
+				player_devices[player_num] = null
+				if not unassigned_players.has(player_num):
+					unassigned_players.append(player_num)
 
 func get_axis(player_num: int, left_action: String, right_action: String) -> float:
 	return Input.get_action_strength(left_action + "_" + str(player_num)) - \

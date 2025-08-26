@@ -1,0 +1,7 @@
+res://Scenes/Playercontrolled/base_character.tscn
+res://Scripts/Autoload/Input_setup.gd
+res://Scripts/Autoload/InputManager.gd
+res://Scripts/Playercontrolled/base_character.gd
+res://Scenes/test_scene.tscn
+res://Scripts/Autoload/InputManager_Obsolete.gd
+res://Scripts/Autoload/InputManagerv1.gd
